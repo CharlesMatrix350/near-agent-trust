@@ -137,6 +137,16 @@ Transparency matters. The current implementation is a prototype, not a productio
 - NEAR AI Inference SDK
 - NEAR Mainnet public JSON-RPC
 
+## Dependencies
+
+- `@nearai/inference-sdk` – NEAR AI inference and response verification.
+- `dotenv` — loads environment variables from the local `.env` file.
+- `express` — HTTP server and application API.
+
+## AI Assistance
+
+AI tools were used during development to assist with code drafting, debugging, and documentation. The developer reviewed, tested, and integrated the implementation.
+
 ## References
 
 - [NEAR AI Inference SDK](https://github.com/nearai/inference-sdk)
