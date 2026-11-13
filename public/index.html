@@ -1,0 +1,1299 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f9f7">
+  <title>NEAR Agent Trust | Trust Infrastructure</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --green: #00a86b;
+      --green-dark: #008653;
+      --ink: #17231e;
+      --muted: #78847e;
+      --line: #e7ece8;
+      --surface: #ffffff;
+      --background: #f7f9f7;
+      --soft-green: #eaf7f0;
+      --red: #c94b4b;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--background);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .topbar {
+      height: 76px;
+      padding: 0 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,.9);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-family: "Manrope", sans-serif;
+      font-weight: 800;
+      letter-spacing: -.7px;
+      font-size: 16px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--green);
+      border-radius: 11px;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .network {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #34443b;
+      font-weight: 600;
+    }
+
+    .network-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .early {
+      padding: 7px 11px;
+      background: var(--soft-green);
+      color: var(--green-dark);
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      font-size: 10px;
+    }
+
+    .container {
+      width: min(1080px, 88%);
+      margin: auto;
+    }
+
+    .hero {
+      padding: 78px 0 42px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--green-dark);
+      background: var(--soft-green);
+      border-radius: 30px;
+      padding: 7px 13px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .7px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow span {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    h1, h2, h3 {
+      font-family: "Manrope", sans-serif;
+      letter-spacing: -1.5px;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: clamp(38px, 6vw, 65px);
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    h1 em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .hero-copy {
+      max-width: 590px;
+      margin: 20px auto 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .trust-points {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .trust-point {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 8px 13px;
+      font-size: 11px;
+      color: #536159;
+    }
+
+    .trust-point b {
+      color: var(--green-dark);
+      margin-right: 5px;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 22px;
+      align-items: start;
+      padding: 22px 0 65px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 27px;
+      box-shadow: 0 8px 30px rgba(25, 50, 35, .035);
+    }
+
+    .panel-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 23px;
+    }
+
+    .panel-heading h2 {
+      font-size: 19px;
+      letter-spacing: -.5px;
+    }
+
+    .step-label {
+      color: var(--green-dark);
+      background: var(--soft-green);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .field {
+      margin-bottom: 19px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #34443b;
+    }
+
+    .field small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid #dfe7e1;
+      border-radius: 11px;
+      padding: 13px 14px;
+      color: var(--ink);
+      background: #fcfdfc;
+      outline: none;
+      font-size: 13px;
+      transition: border .2s, box-shadow .2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(0,168,107,.09);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 112px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: 0;
+      background: var(--green);
+      color: white;
+      border-radius: 11px;
+      padding: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      transition: background .2s, transform .2s;
+    }
+
+    .submit-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:disabled {
+      opacity: .6;
+      cursor: wait;
+      transform: none;
+    }
+
+    .privacy-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 12px;
+    }
+
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+    }
+
+    .status-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .status-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .status-top h3 {
+      font-size: 15px;
+      letter-spacing: -.4px;
+    }
+
+    .status-tag {
+      color: var(--green-dark);
+      background: var(--soft-green);
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 5px 9px;
+    }
+
+    .status-description {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      margin-top: 19px;
+    }
+
+    .workflow-item {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+    }
+
+    .workflow-number {
+      width: 29px;
+      height: 29px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--soft-green);
+      color: var(--green-dark);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .workflow-item strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .workflow-item p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .simulation-card {
+      background: #f0f7f2;
+      border: 1px solid #dceee2;
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .simulation-card h3 {
+      font-size: 14px;
+      margin-bottom: 7px;
+      letter-spacing: -.3px;
+    }
+
+    .simulation-card p {
+      font-size: 11px;
+      color: #63766a;
+    }
+
+    .simulation-label {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .6px;
+      color: #7c681e;
+      background: #fff5d8;
+      padding: 5px 8px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .progress-wrap {
+      display: none;
+      margin-top: 20px;
+      padding: 17px;
+      border: 1px solid var(--line);
+      background: #fbfdfb;
+      border-radius: 12px;
+    }
+
+    .progress-wrap.visible {
+      display: block;
+      animation: fadeIn .3s ease;
+    }
+
+    .progress-title {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .progress-copy {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .progress-track {
+      height: 5px;
+      border-radius: 10px;
+      background: #e7eee9;
+      overflow: hidden;
+      margin-top: 13px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--green);
+      border-radius: 10px;
+      transition: width .5s ease;
+    }
+
+    .result {
+      display: none;
+      margin-top: 22px;
+      animation: fadeIn .4s ease;
+    }
+
+    .result.visible {
+      display: block;
+    }
+
+    .result-header {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 19px;
+      background: #fbfdfb;
+      margin-bottom: 14px;
+    }
+
+    .result-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .result-header h3 {
+      font-size: 16px;
+    }
+
+    .review-tag {
+      background: #fff5d8;
+      color: #80651c;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .score-line {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      margin-top: 12px;
+    }
+
+    .score {
+      font-family: "Manrope", sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 800;
+      color: var(--green-dark);
+    }
+
+    .score-out-of {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .feedback {
+      color: #647169;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    .criteria-title {
+      font-size: 13px;
+      margin: 18px 0 10px;
+    }
+
+    .criterion {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 9px;
+      background: white;
+    }
+
+    .criterion-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .criterion-reason {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 7px;
+    }
+
+    .evidence {
+      background: #f5f8f5;
+      border-left: 3px solid var(--green);
+      padding: 9px 11px;
+      margin-top: 9px;
+      border-radius: 0 7px 7px 0;
+      color: #59665e;
+      font-size: 10px;
+    }
+
+    .human-review {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 15px;
+    }
+
+    .human-review h3 {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .human-review p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .decision-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .decision-buttons button {
+      padding: 10px 5px;
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 9px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #435148;
+    }
+
+    .decision-buttons button:hover {
+      border-color: var(--green);
+      color: var(--green-dark);
+    }
+
+    .decision-message {
+      display: none;
+      margin-top: 12px;
+      padding: 10px;
+      background: var(--soft-green);
+      color: var(--green-dark);
+      border-radius: 9px;
+      font-size: 11px;
+    }
+
+    .decision-message.visible {
+      display: block;
+    }
+
+    .payout-preview {
+      margin-top: 14px;
+      border: 1px dashed #c9d9ce;
+      border-radius: 12px;
+      padding: 15px;
+      background: #fbfdfb;
+    }
+
+    .payout-preview h3 {
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .payout-preview p {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .error-message {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      background: #fff1f0;
+      border: 1px solid #f4d3d0;
+      color: #a53c36;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+
+    .error-message.visible {
+      display: block;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 25px 7%;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .footer strong {
+      color: #425148;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(7px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        padding: 0 5%;
+        height: 66px;
+      }
+
+      .top-right {
+        gap: 10px;
+      }
+
+      .network {
+        display: none;
+      }
+
+      .container {
+        width: 90%;
+      }
+
+      .hero {
+        padding: 55px 0 25px;
+      }
+
+      .hero-copy {
+        font-size: 14px;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+        padding-top: 15px;
+      }
+
+      .panel {
+        padding: 21px;
+      }
+
+      .footer {
+        flex-direction: column;
+        padding: 22px 5%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">N</div>
+      <span>NEAR AGENT TRUST</span>
+    </div>
+
+    <div class="top-right">
+      <div class="network">
+        <span class="network-dot"></span>
+        NEAR ecosystem
+      </div>
+      <span class="early">EARLY ACCESS</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="eyebrow">
+        <span></span>
+        TRUST INFRASTRUCTURE FOR THE AGENT ECONOMY
+      </div>
+
+      <h1>Make agent work <em>verifiable.</em></h1>
+
+      <p class="hero-copy">
+        A smarter way to evaluate AI agent work. Review submissions against clear
+        criteria, examine evidence, and keep important decisions in human hands.
+      </p>
+
+      <div class="trust-points">
+        <div class="trust-point"><b>01</b> AI-powered evaluation</div>
+        <div class="trust-point"><b>02</b> Evidence-based reports</div>
+        <div class="trust-point"><b>03</b> Human-controlled decisions</div>
+      </div>
+    </section>
+
+    <section class="container workspace">
+      <div class="panel">
+        <div class="panel-heading">
+          <h2>Evaluate a submission</h2>
+          <span class="step-label">STEP 01 / 03</span>
+        </div>
+
+        <form id="judgeForm">
+          <div class="field">
+            <label for="bountyTitle">Task or bounty title</label>
+            <input
+              id="bountyTitle"
+              type="text"
+              placeholder="e.g. Build a NEAR ecosystem dashboard"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="rules">Evaluation criteria</label>
+            <textarea
+              id="rules"
+              placeholder="Describe what a successful submission must include..."
+              required
+            ></textarea>
+            <small>Be specific. The AI will evaluate only against the criteria you provide.</small>
+          </div>
+
+          <div class="field">
+            <label for="submission">Agent submission</label>
+            <textarea
+              id="submission"
+              placeholder="Paste the agent's work, explanation, or submission details..."
+              required
+              style="min-height: 145px"
+            ></textarea>
+          </div>
+
+          <button class="submit-btn" id="submitBtn" type="submit">
+            Evaluate submission →
+          </button>
+
+          <p class="privacy-note">
+            Evaluation is advisory. Final decisions remain with a human reviewer.
+          </p>
+        </form>
+
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress-title" id="progressTitle">Preparing evaluation...</div>
+          <div class="progress-copy" id="progressCopy">Checking the submitted information.</div>
+          <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <section class="result" id="result">
+          <div class="result-header">
+            <div class="result-header-top">
+              <h3>Evaluation report</h3>
+              <span class="review-tag">HUMAN REVIEW REQUIRED</span>
+            </div>
+
+            <div class="score-line">
+              <span class="score" id="score">--</span>
+              <span class="score-out-of">/ 100</span>
+            </div>
+
+            <p class="feedback" id="feedback"></p>
+          </div>
+
+          <h3 class="criteria-title">Criteria breakdown</h3>
+          <div id="criteriaList"></div>
+
+          <div class="human-review">
+            <h3>Human review</h3>
+            <p>
+              The AI provides an assessment, not a final verdict.
+              Choose a review outcome below.
+            </p>
+
+            <div class="decision-buttons">
+              <button type="button" data-decision="Approved">Approve</button>
+              <button type="button" data-decision="Revision requested">Request revision</button>
+              <button type="button" data-decision="Rejected">Reject</button>
+            </div>
+
+            <div class="decision-message" id="decisionMessage"></div>
+          </div>
+
+          <div class="payout-preview">
+            <span class="simulation-label">SIMULATION ONLY</span>
+            <h3>Reward status preview</h3>
+            <p>
+              This is a demonstration of a possible reward workflow.
+              No wallet is connected and no funds are transferred.
+            </p>
+            <p id="payoutStatus" style="margin-top:9px;font-weight:700;color:#53665a;">
+              Awaiting human review.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <aside class="side-panel">
+        <div class="status-card" id="nearConnectionCard">
+          <div class="status-top">
+            <h3>NEAR Mainnet connection</h3>
+            <span class="status-tag" id="nearConnectionTag">CHECKING</span>
+          </div>
+          <p class="status-description" id="nearConnectionText">
+            Checking the live NEAR Mainnet connection...
+          </p>
+          <p class="status-description" id="nearBlockText" style="margin-top:10px;">
+            Latest block: checking...
+          </p>
+        </div>
+
+        <div class="status-card">
+          <div class="status-top">
+            <h3>How it works</h3>
+            <span class="status-tag">3 STAGES</span>
+          </div>
+
+          <p class="status-description">
+            A structured evaluation process designed to make agent work easier to review.
+          </p>
+
+          <div class="workflow">
+            <div class="workflow-item">
+              <div class="workflow-number">01</div>
+              <div>
+                <strong>Submit the work</strong>
+                <p>Provide the task requirements and the agent's submission.</p>
+              </div>
+            </div>
+
+            <div class="workflow-item">
+              <div class="workflow-number">02</div>
+              <div>
+                <strong>AI evaluates the evidence</strong>
+                <p>Compare the submission against the supplied criteria.</p>
+              </div>
+            </div>
+
+            <div class="workflow-item">
+              <div class="workflow-number">03</div>
+              <div>
+                <strong>Human makes the decision</strong>
+                <p>Review the report before choosing an outcome.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div class="status-top">
+            <h3>Built for accountability</h3>
+          </div>
+          <p class="status-description">
+            Clear criteria, explainable feedback, and a human decision at the end
+            of the process.
+          </p>
+        </div>
+
+        <div class="simulation-card">
+          <span class="simulation-label">DEMO ENVIRONMENT</span>
+          <h3>Reward workflow preview</h3>
+          <p>
+            Explore how evaluation and human review could connect to a future
+            reward process. All reward actions in this demo are simulated.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span><strong>NEAR AGENT TRUST</strong> · Trust infrastructure for the agent economy.</span>
+    <span>Early prototype · Human decisions remain essential.</span>
+  </footer>
+
+
+<script>
+const form = document.getElementById("judgeForm");
+const submitBtn = document.getElementById("submitBtn");
+const progressWrap = document.getElementById("progressWrap");
+const progressTitle = document.getElementById("progressTitle");
+const progressCopy = document.getElementById("progressCopy");
+const progressBar = document.getElementById("progressBar");
+const errorMessage = document.getElementById("errorMessage");
+const resultSection = document.getElementById("result");
+
+async function loadNearStatus() {
+  const tag = document.getElementById("nearConnectionTag");
+  const message = document.getElementById("nearConnectionText");
+  const block = document.getElementById("nearBlockText");
+
+  try {
+    const response = await fetch("/near/status");
+    const data = await response.json();
+
+    if (!response.ok || !data.connected) {
+      throw new Error("NEAR Mainnet connection is currently unavailable.");
+    }
+
+    tag.textContent = "CONNECTED";
+    message.textContent = `Connected to NEAR ${data.network}. Node syncing: ${data.syncing ? "yes" : "no"}.`;
+    block.textContent = `Latest block: ${Number(data.latestBlockHeight).toLocaleString()}`;
+  } catch (error) {
+    tag.textContent = "UNAVAILABLE";
+    tag.style.background = "#fff1f0";
+    tag.style.color = "#a53c36";
+    message.textContent = error.message || "Could not check NEAR Mainnet.";
+    block.textContent = "Latest block: unavailable";
+  }
+}
+
+let currentEvaluationId = null;
+
+const historyPanel = document.createElement("section");
+historyPanel.style.cssText = "margin-top:20px;padding:16px;border:1px solid #e7ece8;border-radius:14px;background:#fff;";
+
+const historyHeading = document.createElement("h3");
+historyHeading.textContent = "Saved evaluations";
+historyHeading.style.cssText = "font-family:Manrope,sans-serif;font-size:14px;margin-bottom:10px;";
+
+const historyList = document.createElement("div");
+historyPanel.append(historyHeading, historyList);
+form.parentElement.insertBefore(historyPanel, progressWrap);
+
+function showError(message) {
+  errorMessage.textContent = message;
+  errorMessage.classList.add("visible");
+}
+
+function hideError() {
+  errorMessage.textContent = "";
+  errorMessage.classList.remove("visible");
+}
+
+function addTextElement(parent, tag, className, content) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  element.textContent = content;
+  parent.appendChild(element);
+  return element;
+}
+
+function displayCriteria(criteria) {
+  const list = document.getElementById("criteriaList");
+  list.replaceChildren();
+
+  if (!Array.isArray(criteria) || criteria.length === 0) {
+    addTextElement(list, "p", "criterion-reason", "No individual criteria were returned.");
+    return;
+  }
+
+  criteria.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "criterion";
+
+    const top = document.createElement("div");
+    top.className = "criterion-top";
+
+    addTextElement(top, "span", "", item.name || "Evaluation criterion");
+
+    const score = Number(item.score);
+    const maxScore = Number(item.maxScore);
+
+    addTextElement(
+      top,
+      "span",
+      "",
+      Number.isFinite(score) && Number.isFinite(maxScore)
+        ? `${score} / ${maxScore}`
+        : "Score unavailable"
+    );
+
+    card.appendChild(top);
+
+    addTextElement(
+      card,
+      "p",
+      "criterion-reason",
+      item.reason || "No explanation provided."
+    );
+
+    if (item.evidence) {
+      addTextElement(card, "div", "evidence", `Evidence: ${item.evidence}`);
+    }
+
+    list.appendChild(card);
+  });
+}
+
+function decisionLabel(value) {
+  return ({
+    pending: "Pending human review",
+    approved: "Approved",
+    revision_requested: "Revision requested",
+    rejected: "Rejected"
+  })[value] || "Pending human review";
+}
+
+function applyDecisionState(decision) {
+  const message = document.getElementById("decisionMessage");
+  const payout = document.getElementById("payoutStatus");
+  const buttons = document.querySelectorAll("[data-decision]");
+
+  if (!decision || decision === "pending") {
+    message.textContent = "";
+    message.classList.remove("visible");
+    payout.textContent = "Awaiting human review.";
+
+    buttons.forEach(button => {
+      button.disabled = false;
+      button.style.opacity = "1";
+    });
+
+    return;
+  }
+
+  message.textContent = `Saved human review outcome: ${decisionLabel(decision)}.`;
+  message.classList.add("visible");
+
+  if (decision === "approved") {
+    payout.textContent = "Demo status: Approved for simulated reward review. No funds transferred.";
+  } else if (decision === "revision_requested") {
+    payout.textContent = "Demo status: Revision requested. No reward action taken.";
+  } else {
+    payout.textContent = "Demo status: Rejected in this demonstration. No reward action taken.";
+  }
+
+  buttons.forEach(button => {
+    button.disabled = false;
+    button.style.opacity = "1";
+  });
+}
+
+function displayResult(data, decision = "pending", scroll = true) {
+  const score = Number(data.score);
+
+  if (!Number.isFinite(score)) {
+    throw new Error("The evaluator returned an invalid score.");
+  }
+
+  document.getElementById("score").textContent = Math.max(0, Math.min(100, score));
+  document.getElementById("feedback").textContent = data.feedback || "No overall feedback was provided.";
+
+  displayCriteria(data.criteria);
+  applyDecisionState(decision);
+
+  resultSection.classList.add("visible");
+
+  if (scroll) {
+    resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+async function loadHistory() {
+  historyList.replaceChildren();
+
+  try {
+    const response = await fetch("/evaluations");
+
+    if (!response.ok) {
+      throw new Error("Could not load saved evaluations.");
+    }
+
+    const evaluations = await response.json();
+
+    if (!Array.isArray(evaluations) || evaluations.length === 0) {
+      addTextElement(historyList, "p", "criterion-reason", "No saved evaluations yet.");
+      return;
+    }
+
+    evaluations.forEach(item => {
+      const row = document.createElement("div");
+
+      row.style.cssText = "display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #e7ece8;";
+
+      const info = document.createElement("div");
+      info.style.cssText = "min-width:0;";
+
+      const title = addTextElement(
+        info,
+        "strong",
+        "",
+        item.bountyTitle || "Untitled evaluation"
+      );
+
+      title.style.cssText = "display:block;font-size:12px;overflow-wrap:anywhere;";
+
+      const score = Number(item.result?.score);
+      const scoreText = Number.isFinite(score)
+        ? `Score: ${score}/100`
+        : "Score unavailable";
+
+      const date = item.createdAt
+        ? new Date(item.createdAt).toLocaleString()
+        : "Date unavailable";
+
+      addTextElement(
+        info,
+        "p",
+        "criterion-reason",
+        `${scoreText} · ${decisionLabel(item.humanDecision)} · ${date}`
+      );
+
+      const openButton = document.createElement("button");
+      openButton.type = "button";
+      openButton.textContent = "Open";
+
+      openButton.style.cssText = "border:1px solid #dfe7e1;background:#f7f9f7;border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;flex-shrink:0;";
+
+      openButton.addEventListener("click", () => {
+        currentEvaluationId = item.id;
+
+        document.getElementById("bountyTitle").value = item.bountyTitle || "";
+        document.getElementById("rules").value = item.rules || "";
+        document.getElementById("submission").value = item.submission || "";
+
+        try {
+          displayResult(item.result, item.humanDecision || "pending");
+        } catch (error) {
+          showError(error.message);
+        }
+      });
+
+      row.append(info, openButton);
+      historyList.appendChild(row);
+    });
+
+  } catch (error) {
+    addTextElement(
+      historyList,
+      "p",
+      "criterion-reason",
+      error.message || "History could not be loaded."
+    );
+  }
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  hideError();
+  resultSection.classList.remove("visible");
+  currentEvaluationId = null;
+
+  progressWrap.classList.add("visible");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Evaluating...";
+
+  progressTitle.textContent = "Evaluation in progress";
+  progressCopy.textContent = "Sending the submission for assessment.";
+  progressBar.style.width = "25%";
+
+  const payload = {
+    bountyTitle: document.getElementById("bountyTitle").value.trim(),
+    rules: document.getElementById("rules").value.trim(),
+    submission: document.getElementById("submission").value.trim()
+  };
+
+  try {
+    progressCopy.textContent = "The evaluator is reviewing the criteria.";
+    progressBar.style.width = "60%";
+
+    const response = await fetch("/judge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Evaluation failed. Please try again.");
+    }
+
+    currentEvaluationId = data.evaluationId;
+
+    progressBar.style.width = "100%";
+    progressTitle.textContent = "Evaluation complete";
+    progressCopy.textContent = "Your report is ready for human review.";
+
+    displayResult(data, "pending");
+    await loadHistory();
+
+  } catch (error) {
+    progressTitle.textContent = "Evaluation could not be completed";
+    progressCopy.textContent = "Please check the connection and try again.";
+
+    showError(error.message || "Something went wrong. Please try again.");
+
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Evaluate submission →";
+  }
+});
+
+document.querySelectorAll("[data-decision]").forEach(button => {
+  button.addEventListener("click", async function() {
+    hideError();
+
+    if (!currentEvaluationId) {
+      showError("Open or complete a saved evaluation before recording a review decision.");
+      return;
+    }
+
+    const map = {
+      "Approved": "approved",
+      "Revision requested": "revision_requested",
+      "Rejected": "rejected"
+    };
+
+    const backendDecision = map[this.dataset.decision];
+    const buttons = document.querySelectorAll("[data-decision]");
+
+    buttons.forEach(item => {
+      item.disabled = true;
+    });
+
+    try {
+      const response = await fetch(
+        `/evaluations/${encodeURIComponent(currentEvaluationId)}/decision`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ decision: backendDecision })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not save the review decision.");
+      }
+
+      applyDecisionState(backendDecision);
+      await loadHistory();
+
+    } catch (error) {
+      buttons.forEach(item => {
+        item.disabled = false;
+      });
+
+      showError(error.message || "Could not save the review decision.");
+    }
+  });
+});
+
+loadHistory();
+loadNearStatus();
+</script>
+</body>
+</html>
